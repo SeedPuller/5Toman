@@ -1,2 +1,2 @@
-# 5Toman
-A Qt Quick application that i use to take care of people who debts to me.
+# About
+The story was began where i started to recieve 5000Toman for every help i do to people. So i wrote my first c++/qml application to take care of this people debts.
