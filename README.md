@@ -1,2 +1,3 @@
 # About
-The story was began where i started to recieve 5000Toman for every help i do to people. So i wrote my first c++/qml application to take care of this people debts.
+The story began when i started to receive 5000Toman for every time i help people out. 
+so i made my first c++/qml application to take care of peoples debts.
