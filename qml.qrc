@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>MyButton.qml</file>
+        <file>RoundedImage.qml</file>
+        <file>CardDelegate.qml</file>
+        <file>MyTextInput.qml</file>
+        <file>CardView.qml</file>
+        <file>AddRemoveItem.qml</file>
+        <file>pic/default-profile-pic.png</file>
+        <file>pic/logo.png</file>
+        <file>MySpinBox.qml</file>
+    </qresource>
+</RCC>
