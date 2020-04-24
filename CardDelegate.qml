@@ -161,7 +161,7 @@ Item {
                         bgitem.editMode = !editMode
                         // if button pressed in save mode, change values
                         if (!bgitem.editMode && nameEdit.text != "" & owntext.text != "" &
-                                (nameEdit.text != name.text || ownedit.value !== owntext.text)) {
+                                (nameEdit.text !== name.text || ownedit.value != owntext.text)) {
                             model.fullname = nameEdit.text
                             model.debt = ownedit.value.toString()
                             modeldb.updateDB(index)
@@ -181,8 +181,8 @@ Item {
                                 fdialog.makeenable(index)
                             } else {
 //                                console.log("image removed")
-                                model.picurl = defaultpicurl
-                                model.setPic(index, defaultpicurl)
+                          //      model.picurl = defaultpicurl
+                                modeldb.setPic(index, defaultpicurl)
                             }
                         }
                     }
