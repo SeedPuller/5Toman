@@ -178,6 +178,7 @@ Item {
                 font.pixelSize: 11
                 input.clip: true
                 text: model.fullname
+                KeyNavigation.tab: ownedit
             }
 
             MySpinBox {
@@ -190,6 +191,7 @@ Item {
                 font.family: "Noto Serif"
 //                font.pixelSize: 12
                 value: Number(model.debt)
+                KeyNavigation.tab: nameEdit
             }
         }
     }
