@@ -257,7 +257,7 @@ bool ViewModel::changeRow(QStringList* values)
     return false;
 }
 
-bool ViewModel::setPicInDB(int id, QString &url)
+bool ViewModel::setPicInDB(int id, QString url)
 {
     QString query{"UPDATE " DB_TABLE " SET picurl = ? WHERE id = ?"};
     QVariantList params{url, id};

@@ -181,8 +181,8 @@ Item {
                                 fdialog.makeenable(index)
                             } else {
 //                                console.log("image removed")
-                          //      model.picurl = defaultpicurl
-                                modeldb.setPic(index, defaultpicurl)
+                                model.picurl = defaultpicurl
+                                modeldb.setPicInDB(model.id, defaultpicurl)
                             }
                         }
                     }

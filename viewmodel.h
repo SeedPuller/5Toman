@@ -40,7 +40,7 @@ public slots:
     bool remove(int index, const QModelIndex &parent = QModelIndex());
     bool updateDB(int index);
     bool setPic(int index, QString url);
-
+    bool setPicInDB(int id, QString url);
 private:
     QVector<QVariantList> vlist;
     Database db;
@@ -58,7 +58,6 @@ private:
     bool insertRow(const QVariantList& data);
     bool insertRow(const QString& fname, const QString& debt, const QString& picurl);
     bool changeRow(QStringList* values);
-    bool setPicInDB(int id, QString& url);
 };
 
 #endif // VIEWMODEL_H
