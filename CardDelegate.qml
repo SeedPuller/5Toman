@@ -31,11 +31,29 @@ Item {
                 source: model.picurl
                 asynchronous: true
                 Rectangle {
+                    id: changerect
                     visible: bgitem.editMode
-                    anchors.fill: parent
+//                    anchors.fill: parent
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    height: parent.height / 2
                     color: "grey"
                     opacity: imgmousearea.containsMouse ? 0.9 : 0.7
-                    Text {anchors.centerIn: parent; text: "Change"; font.pixelSize: 10 }
+                    Text {anchors.centerIn: parent; text: "Change"; font.pixelSize: 9 }
+                }
+                Rectangle {
+                    visible: bgitem.editMode
+//                    anchors.fill: parent
+                    anchors.left: parent.left
+                    anchors.leftMargin: 1
+                    anchors.rightMargin: 1
+                    anchors.right: parent.right
+                    anchors.top: changerect.bottom
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 1
+                    color: "#a95569"
+                    opacity: imgmousearea.containsMouse ? 0.9 : 0.7
+                    Text {anchors.centerIn: parent; text: "Remove"; font.pixelSize: 9 }
                 }
             }
 
@@ -159,11 +177,16 @@ Item {
                     hoverEnabled: true
                     onClicked: {
                         if (editMode) {
-                            fdialog.makeenable(index)
+                            if (mouseY < (img.height / 2)) {
+                                fdialog.makeenable(index)
+                            } else {
+//                                console.log("image removed")
+                                model.picurl = defaultpicurl
+                                model.setPic(index, defaultpicurl)
+                            }
                         }
                     }
                 }
-
             }
 
             MyTextInput {

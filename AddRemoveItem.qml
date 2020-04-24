@@ -29,7 +29,7 @@ Item {
                 cardview.cardIndex = []
                 viewbackground.removeMode = false
             } else {
-                modeldb.insertFirst("Enter Name", "000", "pic/default-profile-pic.png")
+                modeldb.insertFirst("Enter Name", "000", defaultpicurl)
             }
         }
     }

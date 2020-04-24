@@ -14,7 +14,7 @@ ApplicationWindow {
     height: 650
     title: "5 Toman"
     font.family: "Noto Serif"
-
+    property var defaultpicurl: "pic/default-profile-pic.png"
     LinearGradient {
         id: mainwindow
         anchors.fill: parent //parent.width / 1.16
