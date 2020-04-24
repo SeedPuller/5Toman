@@ -224,8 +224,8 @@ bool ViewModel::setPic(int index, QString url)
     }
     QModelIndex indexmodel = QAbstractItemModel::createIndex(index, 0);
     if (setData(indexmodel, url, picRole)) {
-        setPicInDB(datas[0].toInt(), url);
-        emit
+        return setPicInDB(datas[0].toInt(), url);
+//        emit
     }
     return false;
 }
@@ -260,6 +260,6 @@ bool ViewModel::changeRow(QStringList* values)
 bool ViewModel::setPicInDB(int id, QString &url)
 {
     QString query{"UPDATE " DB_TABLE " SET picurl = ? WHERE id = ?"};
-    QVariantList params{id, url};
+    QVariantList params{url, id};
     return db.executeWithoutFetch(query, params);
 }
