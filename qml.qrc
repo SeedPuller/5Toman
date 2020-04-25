@@ -11,5 +11,6 @@
         <file>pic/default-profile-pic.png</file>
         <file>pic/logo.png</file>
         <file>MySpinBox.qml</file>
+        <file>font/NotoSerif-Medium.ttf</file>
     </qresource>
 </RCC>

@@ -15,6 +15,7 @@ ApplicationWindow {
     title: "5 Toman"
     font.family: "Noto Serif"
     property var defaultpicurl: "pic/default-profile-pic.png"
+    FontLoader { source: "font/NotoSerif-Medium.ttf"; name: "Noto Serif" }
     LinearGradient {
         id: mainwindow
         anchors.fill: parent //parent.width / 1.16
