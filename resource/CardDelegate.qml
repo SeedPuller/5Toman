@@ -202,6 +202,7 @@ Item {
                 input.clip: true
                 text: model.fullname
                 KeyNavigation.tab: ownedit
+                input.maximumLength: 22
             }
 
             MySpinBox {
