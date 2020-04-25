@@ -14,6 +14,12 @@ FocusScope {
             to: 1
         }
     }
+    onFocusChanged: {
+        if (focus) {
+            __input.selectAll()
+        }
+    }
+
     Rectangle {
         id: __background
         anchors.centerIn: parent
