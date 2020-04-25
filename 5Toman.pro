@@ -13,12 +13,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += \
-        database.cpp \
-        main.cpp \
-        viewmodel.cpp
+SOURCES += source/database.cpp source/main.cpp source/viewmodel.cpp
+#        database.cpp \
+#        main.cpp \
+#        viewmodel.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += resource/qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -31,6 +31,6 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-HEADERS += \
-    database.h \
-    viewmodel.h
+HEADERS += header/database.h header/viewmodel.h
+#    database.h \
+#    viewmodel.h
