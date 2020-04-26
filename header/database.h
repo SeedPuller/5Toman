@@ -9,8 +9,6 @@
 #include <QDebug>
 #include <QVector>
 
-#define DB_HOSTNAME    "localhost"
-#define DB_NAME        "modeldb.db"
 #define DB_TABLE       "debtors"
 
 struct ModelStruct {
@@ -23,8 +21,8 @@ struct ModelStruct {
 class Database : public QObject {
     Q_OBJECT
 public:
-    explicit Database(QObject* parent = nullptr);
-    ~Database();
+    explicit Database(const char* hostname, const char* dbname, QObject* parent = nullptr);
+    ~Database() = default;
 
     bool execute(const QString& query, const QStringList* params = nullptr);
     bool execute(const QString &querystr, const QVariantList &params);
@@ -40,9 +38,10 @@ private:
     bool openDatabase();
     bool restoreDatabase();
     bool createTable();
-    void closeDatabase();
+//    void closeDatabase();
 
-
+    QString hostname;
+    QString dbname;
 };
 
 #endif // DATABASE_H

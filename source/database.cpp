@@ -1,18 +1,15 @@
-#include "database.h"
+#include "header/database.h"
 
-Database::Database(QObject* parent) : QObject(parent) {
+Database::Database(const char* hostname, const char* dbname, QObject* parent)
+: QObject(parent), hostname(hostname), dbname(dbname)
+{
     connectToDatabase();
     query = new QSqlQuery(this->db);
 
 }
 
-Database::~Database() {
-    delete this->query;
-    query = nullptr;
-}
-
 void Database::connectToDatabase() {
-    if(!QFile("./" DB_NAME).exists()) {
+    if(!QFile("./" + this->dbname).exists()) {
         qDebug() << "db not exists. restoring...";
         this->restoreDatabase();
     } else {
@@ -34,16 +31,12 @@ bool Database::restoreDatabase() {
 
 bool Database::openDatabase() {
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setHostName(DB_HOSTNAME);
-    db.setDatabaseName("./" DB_NAME);
+    db.setHostName(hostname);
+    db.setDatabaseName("./" + this->dbname);
     if (db.open()) {
         return true;
     }
     return false;
-}
-
-void Database::closeDatabase() {
-    db.close();
 }
 
 bool Database::createTable() {
@@ -132,10 +125,3 @@ QString Database::getError() const
 {
     return this->query->lastError().text();
 }
-
-
-
-
-
-
-
