@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QIcon>
-#include "viewmodel.h"
+#include "header/viewmodel.h"
 
 int main(int argc, char *argv[])
 {
