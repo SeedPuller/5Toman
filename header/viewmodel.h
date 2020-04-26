@@ -5,6 +5,9 @@
 #include <QVector>
 #include "database.h"
 
+#define DB_HOSTNAME    "localhost"
+#define DB_NAME        "modeldb.db"
+
 
 class ViewModel : public QAbstractListModel
 {
@@ -41,10 +44,11 @@ public slots:
     bool updateDB(int index);
     bool setPic(int index, QString url);
     bool setPicInDB(int id, QString url);
+
 private:
     QVector<QVariantList> vlist;
-    Database db;
     const QList<QByteArray> columns{"id", "fullname", "debt", "picurl"};
+    Database db{DB_HOSTNAME, DB_NAME};
     int lastid;
 
     int select(
