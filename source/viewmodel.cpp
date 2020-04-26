@@ -1,4 +1,4 @@
-#include "viewmodel.h"
+#include "header/viewmodel.h"
 #include <QDebug>
 ViewModel::ViewModel(QObject *parent)
     : QAbstractListModel(parent), lastid{-1}
