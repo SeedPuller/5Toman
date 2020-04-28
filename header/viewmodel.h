@@ -46,7 +46,7 @@ public slots:
                      const QString& picurl,
                      const QModelIndex &parent = QModelIndex()
                     );
-
+    // remove an element by index
     bool remove(int index, const QModelIndex &parent = QModelIndex());
     // update database for given row. index is equal to "id" in columns
     bool updateDB(int index);
