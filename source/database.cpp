@@ -8,6 +8,9 @@ Database::Database(const QString& hostname, const QString& dbname, QObject* pare
 
 }
 
+/*
+ * connect to database and set if this is initial connection
+ */
 bool Database::connectToDatabase() {
     if(!QFile("./" + this->dbname).exists()) {
 //        qDebug() << "db not exists.";
@@ -21,7 +24,7 @@ bool Database::connectToDatabase() {
     }
     return false;
 }
-
+// execute sql statements with fetch capability. THIS FUNCTION WILL BE REMOVED in next versions.
 bool Database::execute(const QString &querystr, const QStringList *params)
 {
     if (params == nullptr) {
@@ -36,9 +39,15 @@ bool Database::execute(const QString &querystr, const QStringList *params)
 
     return this->query->exec();
 }
-
+/*
+ *  execute sql statements with fetch capability.
+ *  params with no elements result in executing querystr directly.
+ */
 bool Database::execute(const QString &querystr, const QVariantList& params)
 {
+    if (params.size() == 0) {
+        return this->query->exec(querystr);
+    }
     this->query->prepare(querystr);
     for (QVariant p: params) {
         QVariant::Type type = p.type();
@@ -53,6 +62,10 @@ bool Database::execute(const QString &querystr, const QVariantList& params)
     return this->query->exec();
 }
 
+/*
+ * execute SQL statements without fetch capability.
+ * params with no elements will result in executing querystr directly.
+ */
 bool Database::executeWithoutFetch(const QString &querystr, const QVariantList &params) const
 {
     QSqlQuery query;
@@ -73,6 +86,10 @@ bool Database::executeWithoutFetch(const QString &querystr, const QVariantList &
     return query.exec();
 }
 
+/*
+ * fetch rows that affected by last query execution with "execute" function.
+ * returns number of new rows added to rows vector
+ */
 int Database::fetch(QVector<QVariantList>& rows, int columncounter)
 {
     QVariantList row;
@@ -90,11 +107,13 @@ int Database::fetch(QVector<QVariantList>& rows, int columncounter)
     return rows.size() - vectorsize;
 }
 
+// return last sql statement execution error
 QString Database::getError() const
 {
     return this->query->lastError().text();
 }
 
+// return if database exists already or not.
 bool Database::isFirstInit() const
 {
     return db_exist_flag;

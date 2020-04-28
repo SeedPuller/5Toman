@@ -38,8 +38,6 @@ QVariant ViewModel::data(const QModelIndex &index, int role) const
             return temp[2];
         case picRole:
             return temp[3];
-//        case editRole:
-//            return QVariant(false);
     }
     return QVariant();
 }
@@ -132,7 +130,12 @@ bool ViewModel::remove(int index, const QModelIndex& parent) {
         return true;
 }
 
-
+/*
+ * an utility for SELECT statements in sql.
+ * "columns" is a list of columns need to fetch
+ * "order" is an element which used to change the fetch ordering by.
+ * returns number of fetched rows. and -1 if fails.
+ */
 int ViewModel::select(const QList<QByteArray>& columns,
                        const QByteArray& order,
                        bool ascend,
@@ -207,7 +210,9 @@ bool ViewModel::insertRow(const QVariantList& data) {
     qDebug() << db.getError();
     return false;
 }
-
+/*
+ * insert a row in database. this function just create a QVariantList and call another insertRow function.
+ */
 bool ViewModel::insertRow(const QString& fname, const QString& debt, const QString& picurl) {
     QVariantList data;
     data.append(fname);
@@ -234,8 +239,8 @@ bool ViewModel::updateDB(int index)
     return this->changeRow(&valuelist);
 }
 
-/**
- *  this function set pic in model vector and then call setPicInDB to update picture
+/*
+ *  set pic in model vector and then call setPicInDB to update picture
  *  in the database
  */
 bool ViewModel::setPic(int index, QString url)
