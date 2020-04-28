@@ -3,6 +3,10 @@
 ViewModel::ViewModel(QObject *parent)
     : QAbstractListModel(parent), lastid{-1}
 {
+    if (db.isFirstInit()) {
+        qDebug() << "initialize database";
+        createDbTable();
+    }
     select(this->columns, "id", false);
 //    foreach (QVariantList var, vlist) {
 //        qDebug() << var[0].toInt() << "\t" << var[1].toString();
@@ -90,7 +94,7 @@ bool ViewModel::insertFirst(const QString& name, const QString& debt, const QStr
     insertresult = insertRow(name, debt, picurl);
     if (lastid == -1) {
         if (!insertresult) {
-//            qDebug() << "insertFirst not ok";
+            //qDebug() << "insertFirst not ok";
             return false;
         }
         QVector<QVariantList> result;
@@ -138,10 +142,6 @@ int ViewModel::select(const QList<QByteArray>& columns,
     int numberofrows{0};
     QString querystr = "SELECT " + columns.join(",") + " FROM " DB_TABLE;
 
-    if (limit) {
-        querystr += " LIMIT " + QString(limit);
-    }
-
     if (order != nullptr) {
         querystr += " ORDER BY " + order;
         if (ascend) {
@@ -149,6 +149,10 @@ int ViewModel::select(const QList<QByteArray>& columns,
         } else {
             querystr += " DESC";
         }
+    }
+
+    if (limit) {
+        querystr += " LIMIT " + QString(limit);
     }
 
     if (!db.execute(querystr)) {
@@ -162,7 +166,25 @@ int ViewModel::select(const QList<QByteArray>& columns,
     return numberofrows;
 }
 
-bool ViewModel::removeRow(const int id) {
+bool ViewModel::createDbTable() const
+{
+    QString query{"CREATE TABLE " DB_TABLE " ("
+                          "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                          "fullname VARCHAR(255) NOT NULL, "
+                          "debt VARCHAR(255) NOT NULL,"
+                          "picurl VARCHAR(255) NOT NULL"
+                          ")"
+                        };
+    if (db.executeWithoutFetch(query, QVariantList())) {
+        return true;
+    }
+    qDebug() << "error creating table: " DB_TABLE;
+//    qDebug() << query.lastError().text();
+    return false;
+}
+
+bool ViewModel::removeRow(const int id)
+{
     QVariantList params;
     params.append(id);
     QString query{"DELETE FROM " DB_TABLE " WHERE id = ?"};
@@ -225,7 +247,6 @@ bool ViewModel::setPic(int index, QString url)
     QModelIndex indexmodel = QAbstractItemModel::createIndex(index, 0);
     if (setData(indexmodel, url, picRole)) {
         return setPicInDB(datas[0].toInt(), url);
-//        emit
     }
     return false;
 }

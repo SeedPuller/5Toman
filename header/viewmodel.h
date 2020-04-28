@@ -7,6 +7,7 @@
 
 #define DB_HOSTNAME    "localhost"
 #define DB_NAME        "modeldb.db"
+#define DB_TABLE       "debtors"
 
 
 class ViewModel : public QAbstractListModel
@@ -23,7 +24,6 @@ public:
     };
 
     explicit ViewModel(QObject *parent = nullptr);
-
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     bool setData(const QModelIndex &index, const QVariant &value,
@@ -46,10 +46,10 @@ public slots:
     bool setPicInDB(int id, QString url);
 
 private:
+    int lastid;
     QVector<QVariantList> vlist;
     const QList<QByteArray> columns{"id", "fullname", "debt", "picurl"};
-    Database db{DB_HOSTNAME, DB_NAME};
-    int lastid;
+    Database db{QString(DB_HOSTNAME), QString(DB_NAME)};
 
     int select(
                 const QList<QByteArray>& columns,
@@ -57,7 +57,7 @@ private:
                 bool ascend = true,
                 bool limit = false
                 );
-
+    bool createDbTable() const;
     bool removeRow(const int id);
     bool insertRow(const QVariantList& data);
     bool insertRow(const QString& fname, const QString& debt, const QString& picurl);

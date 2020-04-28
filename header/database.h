@@ -9,7 +9,6 @@
 #include <QDebug>
 #include <QVector>
 
-#define DB_TABLE       "debtors"
 
 struct ModelStruct {
     int id;
@@ -21,7 +20,7 @@ struct ModelStruct {
 class Database : public QObject {
     Q_OBJECT
 public:
-    explicit Database(const char* hostname, const char* dbname, QObject* parent = nullptr);
+    explicit Database(const QString& hostname, const QString& dbname, QObject* parent = nullptr);
     ~Database() = default;
 
     bool execute(const QString& query, const QStringList* params = nullptr);
@@ -29,19 +28,15 @@ public:
     bool executeWithoutFetch(const QString &querystr, const QVariantList &params) const;
     int fetch(QVector<QVariantList>& rows, int columncounter);
     QString getError() const;
+    bool isFirstInit() const;
 private:
     QSqlDatabase db;
     QSqlQuery* query;
-
-private:
-    void connectToDatabase();
-    bool openDatabase();
-    bool restoreDatabase();
-    bool createTable();
-//    void closeDatabase();
-
     QString hostname;
     QString dbname;
+    bool db_exist_flag{false};
+
+    bool connectToDatabase();
 };
 
 #endif // DATABASE_H
