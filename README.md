@@ -1,6 +1,5 @@
 # About
-The story began when i started to asking people to pay 5000Toman for every time i help them out(just for kidding). 
-so i made my first c++/qml application to take care of peoples debts Just For Fun.
+As a joke, I started asking people to pay me 5000Toman for helping them out. I made my first C++/QML application to take care of people's debts FOR FUN.
 
 # Credit
 - SeedPuller - SeedPuller@gmail.com
